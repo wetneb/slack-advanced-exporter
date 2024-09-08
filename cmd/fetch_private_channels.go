@@ -198,8 +198,8 @@ func fetchChannelHistory(output io.Writer, token string, channelId string) ([]st
 
 		res = append(res, data.Messages...)
 		for _, message := range data.Messages {
-			_, has_reply_count := message["reply_count"].(float64)
-			if has_reply_count {
+			reply_count, has_reply_count := message["reply_count"].(float64)
+			if has_reply_count && reply_count > 0 {
 				id, present := message["ts"].(string)
 				if present {
 					ts_ids = append(ts_ids, id)
